@@ -3,7 +3,7 @@ export class Application {
   fullName: string;
   applicationStatus: string;
   panCard: string;
-  dateOfBirth: string;
+  dateOfBirth: Date;
   email: string;
   phone: string;
   address: string;
@@ -14,15 +14,16 @@ export class Application {
   employmentStatus: string;
   creditScore: number;
   assets: string;
-  dateApplied: string;
+  dateApplied: Date;
   Loans: Loan[];
+  customerId: number;
 
   constructor() {
     this.applicantID = 0;
     this.fullName = '';
     this.applicationStatus = 'New';
     this.panCard = '';
-    this.dateOfBirth = '';
+    this.dateOfBirth = new Date();
     this.email = '';
     this.phone = '';
     this.address = '';
@@ -33,8 +34,9 @@ export class Application {
     this.employmentStatus = '';
     this.creditScore = 0;
     this.assets = '';
-    this.dateApplied = '';
+    this.dateApplied = new Date();
     this.Loans = [];
+    this.customerId = 0;
   }
 }
 
@@ -52,4 +54,10 @@ export class Loan {
     this.loanAmount = 0;
     this.emi = 0;
   }
+}
+
+export interface ApiResponseModel {
+  message: string;
+  result: boolean;
+  data: any;
 }

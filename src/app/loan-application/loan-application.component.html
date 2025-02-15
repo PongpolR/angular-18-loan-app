@@ -54,6 +54,7 @@
                     id="fullName"
                     name="fullName"
                     required
+                    [(ngModel)]="application.fullName"
                   />
                 </div>
               </div>
@@ -64,6 +65,7 @@
                   <input
                     type="date"
                     class="form-control"
+                    [(ngModel)]="application.dateOfBirth"
                     id="dob"
                     name="dob"
                     required
@@ -74,6 +76,7 @@
                   <input
                     type="email"
                     class="form-control"
+                    [(ngModel)]="application.email"
                     id="email"
                     name="email"
                     required
@@ -84,6 +87,7 @@
                   <input
                     type="tel"
                     class="form-control"
+                    [(ngModel)]="application.phone"
                     id="phone"
                     name="phone"
                     required
@@ -94,7 +98,10 @@
               <div class="row mb-3">
                 <div class="col-md-12">
                   <label for="address" class="form-label">Address:</label>
-                  <textarea class="form-control"></textarea>
+                  <textarea
+                    class="form-control"
+                    [(ngModel)]="application.address"
+                  ></textarea>
                 </div>
               </div>
 
@@ -104,6 +111,7 @@
                   <input
                     type="text"
                     class="form-control"
+                    [(ngModel)]="application.city"
                     id="city"
                     name="city"
                     required
@@ -114,6 +122,7 @@
                   <input
                     type="text"
                     class="form-control"
+                    [(ngModel)]="application.state"
                     id="state"
                     name="state"
                     required
@@ -124,6 +133,7 @@
                   <input
                     type="text"
                     class="form-control"
+                    [(ngModel)]="application.zipCode"
                     id="zipCode"
                     name="zipCode"
                     required
@@ -137,6 +147,7 @@
                   <input
                     type="number"
                     class="form-control"
+                    [(ngModel)]="application.annualIncome"
                     id="income"
                     name="income"
                     min="10000"
@@ -151,6 +162,7 @@
                     id="employmentStatus"
                     name="employmentStatus"
                     class="form-control"
+                    [(ngModel)]="application.employmentStatus"
                     required
                   >
                     <option value="employed">Employed</option>
@@ -166,6 +178,7 @@
                   <input
                     type="number"
                     class="form-control"
+                    [(ngModel)]="application.creditScore"
                     id="creditScore"
                     name="creditScore"
                     min="300"
@@ -179,6 +192,7 @@
                 <label for="assets" class="form-label">Assets:</label>
                 <textarea
                   class="form-control"
+                  [(ngModel)]="application.assets"
                   placeholder="Describe your assets (e.g., property, vehicle, etc.)"
                 ></textarea>
               </div>
@@ -199,6 +213,7 @@
                       <input
                         type="text"
                         class="form-control"
+                        [(ngModel)]="loan.bankName"
                         id="bankName"
                         name="bankName[]"
                         required
@@ -211,6 +226,7 @@
                       <input
                         type="number"
                         class="form-control"
+                        [(ngModel)]="loan.loanAmount"
                         id="loanAmount"
                         name="loanAmount[]"
                         min="0"
@@ -222,6 +238,7 @@
                       <input
                         type="number"
                         class="form-control"
+                        [(ngModel)]="loan.emi"
                         id="emi"
                         name="emi[]"
                         min="0"
@@ -230,7 +247,12 @@
                     </div>
                   </div>
                 </div>
-                <button type="button" class="btn btn-secondary" id="addLoan">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  id="addLoan"
+                  (click)="addLoan()"
+                >
                   Add Another Loan
                 </button>
                 <div class="row">
@@ -244,6 +266,7 @@
                           <th>EMI</th>
                         </tr>
                       </thead>
+                      @if (application.Loans.length === 0) {
                       <tbody>
                         <tr>
                           <td class="text-center" colspan="4">
@@ -251,6 +274,18 @@
                           </td>
                         </tr>
                       </tbody>
+                      } @else {
+                      <tbody>
+                        @for (item of application.Loans; track $index) {
+                        <tr>
+                          <td>{{ $index + 1 }}</td>
+                          <td>{{ item.bankName }}</td>
+                          <td>{{ item.loanAmount }}</td>
+                          <td>{{ item.emi }}</td>
+                        </tr>
+                        }
+                      </tbody>
+                      }
                     </table>
                   </div>
                 </div>
@@ -261,7 +296,7 @@
       </div>
       <div class="row">
         <div class="col-12 text-center pt-2">
-          <button type="button" class="btn btn-primary btn-lg">
+          <button type="button" class="btn btn-primary btn-lg" (click)="onSubmit()">
             Submit Application
           </button>
         </div>
